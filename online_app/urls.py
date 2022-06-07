@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
-from lecturer.views import SignupView
-
+from lecturer.views import signup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,5 +12,5 @@ urlpatterns = [
 
     path('logout/', LogoutView.as_view(), name="logout"),
 
-    path('signup/', SignupView.as_view(), name="signup"),
+    path('signup/', signup, name="signup"),
 ]

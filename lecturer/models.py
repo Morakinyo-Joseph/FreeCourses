@@ -26,7 +26,7 @@ class Course(models.Model):
     lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
     category = models.CharField(choices=TOPIC_CHOICES, max_length=100)
     topic = models.CharField(max_length=250)
-    content = models.CharField(max_length=10000)
+    content = models.CharField(max_length=2500)
     date_created = models.DateTimeField(default=datetime.now)
 
     def __str__(self):

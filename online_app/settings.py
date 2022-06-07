@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lecturer',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,5 @@ AUTH_USER_MODEL = 'lecturer.User'
 LOGIN_REDIRECT_URL = "teach:course-list"
 
 LOGOUT_REDIRECT_URL = "login"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
