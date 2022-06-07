@@ -8,6 +8,8 @@ urlpatterns = [
 
     path('teach/', include('lecturer.urls', namespace="teach")),
 
+    path('learn/', include('student.urls', namespace = "learn")),
+
     path('login/', LoginView.as_view(), name="login"),
 
     path('logout/', LogoutView.as_view(), name="logout"),
