@@ -94,7 +94,6 @@ def course_detail(request, pk):
 #     context_object_name = "course"
 
 
-
 def course_update(request, pk):
     course = Course.objects.get(id=pk)
     return render(request, 'lecturer/course_update.html', {"course": course})
