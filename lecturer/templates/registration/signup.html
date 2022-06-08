@@ -4,7 +4,25 @@
 
 <form action="", method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+
+    <p>Username: </p>
+    <input type="text", name="username">
+
+    <p>First Name: </p>
+    <input type="text", name="first_name">
+
+    <p>Last Name: </p>
+    <input type="text", name="last_name">
+
+    <p>Email: </p>
+    <input type="email", name="email">
+
+    <p>Password: </p>
+    <input type="password", name="password1">
+
+    <p>Confirm Password: </p>
+    <input type="password", name="password2">
+
     <button type="submit">SignUp</button>
 </form>
 

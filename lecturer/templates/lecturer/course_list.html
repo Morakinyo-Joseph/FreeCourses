@@ -6,14 +6,14 @@
 <h1>Courses you teach</h1>
 
 <ul>
-    {% for course in course %}
+    {% for course in course reversed %}
         <a href="{% url 'teach:course-detail' course.pk %}">
             <li>
                 <h2 style="text-decoration: underline;">{{ course.category }}</h2>
                 <hr>
             </li>
-    {% endfor %}
         </a>
+    {% endfor %}
 </ul>
 
 {% endblock %}
