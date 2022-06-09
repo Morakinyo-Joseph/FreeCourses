@@ -11,6 +11,10 @@ User = get_user_model()
 # the class views were left commented
 
 
+def landing_page(request):
+    return render(request, "landing_page.html")
+
+
 def signup(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -37,41 +41,15 @@ def signup(request):
 
         else:
             messages.info(request, "Passwords do not match")
+            return redirect('signup')
 
     else:
         return render(request, "registration/signup.html")
-
-# class SignupView(generic.CreateView):
-#     template_name = "registration/signup.html"
-#     form_class = CustomUserCreationForm
-#
-#     def get_success_url(self):
-#         return reverse("login")
 
 
 def course_list(request):
     course = Course.objects.all()
     return render(request, 'lecturer/course_list.html', {"course": course})
-
-# class CourseListView(generic.ListView):
-#     template_name = "lecturer/course_list.html"
-#     queryset = Course.objects.all()
-#     context_object_name = "course"
-
-
-# def course_create(request):
-#     course = Course.objects.all()
-#     if request.method == "POST":
-#         lecturer_name = request.POST['lecturer']
-#         category = request.POST['category']
-#         topic = request.POST['topic']
-#         content = request.POST['content']
-#
-#         new_course = Course.objects.create(lecturer=lecturer_name, category=category, topic=topic, content=content)
-#         new_course.save()
-#         return render('lecturer:course-detail')
-#     else:
-#         return render(request, 'lecturer/course_creation.html', {"course": course})
 
 
 class CourseCreateView(generic.CreateView):
@@ -88,25 +66,9 @@ def course_detail(request, pk):
     return render(request, 'lecturer/course_detail.html', {"course": course})
 
 
-# class CourseDetailView(generic.DetailView):
-#     template_name = "lecturer/course_detail.html"
-#     queryset = Course.objects.all()
-#     context_object_name = "course"
-
-
 def course_update(request, pk):
     course = Course.objects.get(id=pk)
     return render(request, 'lecturer/course_update.html', {"course": course})
-
-
-# class CourseUpdateView(generic.UpdateView):
-#     template_name = "lecturer/course_update.html"
-#     queryset = Course.objects.all()
-#     form_class = CourseForm
-#
-#     def get_success_url(self):
-#         return reverse("teach:course-list")
-#
 
 
 def course_delete(request):
