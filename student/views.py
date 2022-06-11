@@ -10,17 +10,28 @@ User = get_user_model()
 # Create your views here.
 def studentsignup(request):
     submitted = False
-    form = studentsignup
-    if request.method == 'Post':
+    form = StudentsignupForm
+    if request.method == 'POST':
         form = StudentsignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("/studentlogin")
+        if form.password1 == form.password2:
+            if User.objects.filter(Username=form.Username).exists():
+                messages.info(request, 'Username already exists!')
+                return redirect("/studentsignup")
+            elif User.objects.filter(student_email=form.student_email).exists():
+                messages.info(request, 'Username already exists!')
+                return redirect("/studentsignup")
+            else:
+                form = User.objects.create_user(Username=form.Username, student_email=form.student_email, password1=form.password1)
+                form.save()
+                return redirect("/studentlogin")
         else:
-            form = studentsignup
-            if 'submitted' in request.GET:
-                submitted = True
-        return render(request, 'student/studentsignup.html', {'form': form, 'submitted': submitted})
+            messages.info(request, 'Passwords do not match')
+            return redirect("/studentsignup")
+    else:
+        form = StudentsignupForm
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'studentsignup.html', {'form': form, 'submitted': submitted})
 
         # username = request.POST['username']
         # first_name = request.POST['first_name']
@@ -47,8 +58,8 @@ def studentsignup(request):
         # else:
         #     messages.info(request, "Passwords do not match")
         #     return redirect('/studentsignup')
-    else:
-        return render(request, "studentsignup.html")
+    # else:
+    #     return render(request, "studentsignup.html")
 
 def studentlogin(request):
     if request.method == 'POST':

@@ -9,7 +9,13 @@ class StudentsignupForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = (
-            "__all__"
+            "Fname",
+            "Lname",
+            "Username",
+            "password1",
+            "password2",
+            "date_of_birth",
+            "student_email",
         )
 
         widgets = {
