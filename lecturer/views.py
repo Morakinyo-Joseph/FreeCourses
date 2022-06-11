@@ -5,7 +5,7 @@ from .forms import CourseForm
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 
-User = get_user_model()
+User = get_user_model()  #This isn't needed since User is imported directly
 
 # I changed from the generic class views to functions
 # the class views were left commented
@@ -34,9 +34,9 @@ def signup(request):
                                                     first_name=first_name, last_name=last_name)
                 new_user.save()
                 return redirect('login')
-
         else:
             messages.info(request, "Passwords do not match")
+            return redirect('login')
 
     else:
         return render(request, "registration/signup.html")

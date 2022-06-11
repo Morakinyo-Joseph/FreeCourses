@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in messages %} 
+    <h4 style="color: red;">{{message}}</h4>
+{% endfor %}
+{% comment %} //Added message tags {% endcomment %}
+
+<form action="", method="post">
+    {% csrf_token %}
+
+    <p>Username: </p>
+    <input type="text", name="username">
+
+    <p>Password: </p>
+    <input type="password", name="password">
+
+    <br>
+    <input type="submit">
+
+
+
+
+{% endblock %}
