@@ -13,6 +13,7 @@ class CourseForm(forms.ModelForm):
             "lecturer",
             "category",
             "topic",
+            "description",
         )
 
 #

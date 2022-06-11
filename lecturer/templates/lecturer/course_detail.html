@@ -14,8 +14,11 @@
                 <h2>{{ course.date_created }}</h2>
                 <p>{{ course.topic }}</p>
                 <p>Posted by: {{ course.lecturer.user.username }}</p>
-
+                <p>{{ course.description }}</p>
+                <p>{{ course.file}}</p>
+                <br>
                 <a href="{% url 'lecturer:course-update' course.pk %}"> Edit </a>
+                <a href="{% url 'lecturer:course-delete' course.pk %}"> Delete </a>
             </div>
         </div>
     </div>

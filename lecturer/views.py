@@ -1,18 +1,23 @@
 from django.shortcuts import render, reverse, redirect
 from django.views import generic
-from .models import Course
+from .models import Course, Lecturer
 from .forms import CourseForm
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from datetime import datetime
 
 User = get_user_model()
 
-# I changed from the generic class views to functions
-# the class views were left commented
-
 
 def landing_page(request):
-    return render(request, "landing_page.html")
+    if User.is_authenticated:
+        return redirect('homepage')
+    else:
+        return render(request, "landing_page.html")
+
+
+def homepage(request):
+    return render(request, "homepage.html")
 
 
 def signup(request):
@@ -52,13 +57,11 @@ def course_list(request):
     return render(request, 'lecturer/course_list.html', {"course": course})
 
 
-class CourseCreateView(generic.CreateView):
-    template_name = "lecturer/course_creation.html"
-    queryset = Course.objects.all()
-    form_class = CourseForm
+def course_creation(request):
+    course = Course.objects.all()
+    form = CourseForm()
 
-    def get_success_url(self):
-        return reverse("teach:course-list")
+    return render(request, "lecturer/course_creation.html", {"form": form})
 
 
 def course_detail(request, pk):
@@ -68,18 +71,23 @@ def course_detail(request, pk):
 
 def course_update(request, pk):
     course = Course.objects.get(id=pk)
-    return render(request, 'lecturer/course_update.html', {"course": course})
+    form_update = CourseForm(instance=course)
+
+    if request.method == "POST":
+        form_update = CourseForm(instance=course)
+        if form_update.is_valid:
+            form_update.save()
+            return redirect("/teach")
+
+    return render(request, 'lecturer/course_update.html', {"course": course,
+                                                           "form": form_update})
 
 
-def course_delete(request):
-    pass
-#
-# class CourseDeleteView(generic.DeleteView):
-#     template_name = "lecturer/course_delete.html"
-#     queryset = Course.objects.all()
-#
-#     def get_success_url(self):
-#         return reverse("teach:course-list")
+def course_delete(request, pk):
+    course = Course.objects.get(id=pk)
+    course.delete()
+    return redirect("/teach")
+
 
 
 
