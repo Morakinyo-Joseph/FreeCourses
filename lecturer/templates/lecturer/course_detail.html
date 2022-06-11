@@ -4,31 +4,22 @@
 
 <h1>This are the questions</h1>
 
+<h1>{{ course.category }}</h1>
 
-<section>
-    <div class=" flex flex-col items-center px-5 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="flex flex-col w-full max-w-3xl mx-auto prose text-left prose-blue">
-            <div class="w-full mx-auto">
-
-                <h1>{{ course.category }}</h1>
-                <h2>{{ course.date_created }}</h2>
-                <p>{{ course.topic }}</p>
-                <p>Posted by: {{ course.lecturer.user.username }}</p>
-                <p>{{ course.description }}</p>
-                <p>{{ course.file}}</p>
-                <br>
-                <a href="{% url 'lecturer:course-update' course.pk %}"> Edit </a>
-                <a href="{% url 'lecturer:course-delete' course.pk %}"> Delete </a>
-            </div>
-        </div>
-    </div>
-</section>
+<hr>
+<h2>{{ course.topic }}</h2>
+<hr>
+<h3>Posted by: {{ course.lecturer.user.username }}</h3>
+<h4>{{ course.date_created }}</h4>
+<h2>{{ course.description }}</h2>
+<br>
+<p>
+    <a href="{% url 'lecturer:course-update' course.pk %}"> Edit </a>
+</p>
+<p>
+    <a href="{% url 'lecturer:course-delete' course.pk %}"> Delete </a>
+</p>
 
 
-
-
-
-
-<h1></h1>
 
 {% endblock %}
