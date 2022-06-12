@@ -11,7 +11,7 @@
         <a href="{% url 'teach:course-detail' course.pk %}">
             <li>
                 <h2 style="text-decoration: underline;">{{ course.category }}</h2>
-                <h3>{{ course.description | truncatewords:10 }}</h3>
+                <h3>{{ course.content }}</h3>
                 <hr>
             </li>
         </a>

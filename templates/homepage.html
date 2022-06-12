@@ -7,9 +7,10 @@
     <h1>This is your profile {{ user.username }}</h1>
 
 {% else %}
+    <h1 style="text-decoration: underline;">Select User</h1>
 
-    <p><h1>Log in as <a href="{% url 'teach:course-list' %}">Lecturer</a></h1></p>
-<!--    <p><h1>Log in as <a href="{% url '' %}">Student</a></h1></p>-->
+    <p><h1>Log in as <a href="{% url 'teach:login' %}">Lecturer</a></h1></p>
+    <p><h1>Log in as <a href="{% url 'learn:login' %}">Student</a></h1></p>
 
 {% endif %}
 
