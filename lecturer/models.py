@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class User(AbstractUser):
-    pass
+    is_lecturer = models.BooleanField(default=False)
 
 
 class Lecturer(models.Model):

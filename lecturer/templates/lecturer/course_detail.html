@@ -11,7 +11,7 @@
 <hr>
 <h3>Posted by: {{ course.lecturer.user.username }}</h3>
 <h4>{{ course.date_created }}</h4>
-<h2>{{ course.description }}</h2>
+<h2>{{ course.content }}</h2>
 <br>
 <p>
     <a href="{% url 'lecturer:course-update' course.pk %}"> Edit </a>

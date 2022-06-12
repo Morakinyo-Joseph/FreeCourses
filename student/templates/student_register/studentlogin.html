@@ -2,10 +2,11 @@
 
 {% block content %}
 
+<h1>Student login page</h1>
+
 {% for message in messages %} 
     <h4 style="color: red;">{{message}}</h4>
 {% endfor %}
-{% comment %} //Added message tags {% endcomment %}
 
 <form action="", method="post">
     {% csrf_token %}
@@ -17,9 +18,9 @@
     <input type="password", name="password">
 
     <br>
-    <input type="submit">
+    <input type="submit", value="Login">
+</form>
 
-
-
+<h4>Don't have an account, click <a href="{% url 'learn:signup' %}">here</a> </h4>
 
 {% endblock %}
