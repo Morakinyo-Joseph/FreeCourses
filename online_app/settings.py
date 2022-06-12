@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lecturer',
     'student',
+    'register',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'lecturer.User'
 
-LOGIN_REDIRECT_URL = "teach:course-list"
+LOGIN_REDIRECT_URL = "homepage"
 
 LOGOUT_REDIRECT_URL = "login"

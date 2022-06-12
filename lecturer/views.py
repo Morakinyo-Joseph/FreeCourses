@@ -1,9 +1,8 @@
-from django.shortcuts import render, reverse, redirect
-from django.views import generic
-from .models import Course
+from django.shortcuts import render, redirect, reverse
+from .models import Course, Lecturer
 from .forms import CourseForm
-from django.contrib.auth import get_user_model
 from django.contrib import messages
+<<<<<<< HEAD
 
 User = get_user_model()  #This isn't needed since User is imported directly
 
@@ -47,40 +46,32 @@ def signup(request):
 #
 #     def get_success_url(self):
 #         return reverse("login")
+=======
+from django.views import generic
+>>>>>>> c97dd558a16ad29d17ae430f3e3d253d017f9629
 
 
 def course_list(request):
     course = Course.objects.all()
     return render(request, 'lecturer/course_list.html', {"course": course})
 
-# class CourseListView(generic.ListView):
-#     template_name = "lecturer/course_list.html"
+
+# class CourseCreateView(generic.CreateView):
+#     template_name = "lecturer/course_creation.html"
 #     queryset = Course.objects.all()
-#     context_object_name = "course"
-
-
-# def course_create(request):
-#     course = Course.objects.all()
-#     if request.method == "POST":
-#         lecturer_name = request.POST['lecturer']
-#         category = request.POST['category']
-#         topic = request.POST['topic']
-#         content = request.POST['content']
+#     form_class = CourseForm
 #
-#         new_course = Course.objects.create(lecturer=lecturer_name, category=category, topic=topic, content=content)
-#         new_course.save()
-#         return render('lecturer:course-detail')
-#     else:
-#         return render(request, 'lecturer/course_creation.html', {"course": course})
+#     def get_success_url(self):
+#         return reverse("teach:course-list")
+def course_create(request):
+    form = CourseForm()
+    if request.method == "POST":
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('teach:course-list')
 
-
-class CourseCreateView(generic.CreateView):
-    template_name = "lecturer/course_creation.html"
-    queryset = Course.objects.all()
-    form_class = CourseForm
-
-    def get_success_url(self):
-        return reverse("teach:course-list")
+    return render(request, "lecturer/course_creation.html", {"form": form})
 
 
 def course_detail(request, pk):
@@ -88,36 +79,24 @@ def course_detail(request, pk):
     return render(request, 'lecturer/course_detail.html', {"course": course})
 
 
-# class CourseDetailView(generic.DetailView):
-#     template_name = "lecturer/course_detail.html"
-#     queryset = Course.objects.all()
-#     context_object_name = "course"
-
-
 def course_update(request, pk):
     course = Course.objects.get(id=pk)
-    return render(request, 'lecturer/course_update.html', {"course": course})
+    form = CourseForm(instance=course)
+    if request.method == "POST":
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect('teach:course-list')
+
+    return render(request, 'lecturer/course_update.html', {"course": course,
+                                                           "form": form})
 
 
-# class CourseUpdateView(generic.UpdateView):
-#     template_name = "lecturer/course_update.html"
-#     queryset = Course.objects.all()
-#     form_class = CourseForm
-#
-#     def get_success_url(self):
-#         return reverse("teach:course-list")
-#
+def course_delete(request, pk):
+    course = Course.objects.get(id=pk)
+    course.delete()
+    return redirect("/teach")
 
-
-def course_delete(request):
-    pass
-#
-# class CourseDeleteView(generic.DeleteView):
-#     template_name = "lecturer/course_delete.html"
-#     queryset = Course.objects.all()
-#
-#     def get_success_url(self):
-#         return reverse("teach:course-list")
 
 
 
