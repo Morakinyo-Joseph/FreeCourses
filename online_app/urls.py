@@ -4,6 +4,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from lecturer.views import homepage, landing_page
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
