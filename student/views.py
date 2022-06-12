@@ -9,19 +9,22 @@ User = get_user_model()
 
 # Create your views here.
 def studentsignup(request):
-    submitted = False
     form = StudentsignupForm
     if request.method == 'POST':
         form = StudentsignupForm(request.POST)
-        if form.password1 == form.password2:
-            if User.objects.filter(Username=form.Username).exists():
+        Username = request.POST['Username']
+        student_email = request.POST['student_email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        if password == password2:
+            if User.objects.filter(username=Username).exists():
                 messages.info(request, 'Username already exists!')
                 return redirect("/studentsignup")
-            elif User.objects.filter(student_email=form.student_email).exists():
-                messages.info(request, 'Username already exists!')
+            elif User.objects.filter(email=student_email).exists():
+                messages.info(request, 'Email already used!')
                 return redirect("/studentsignup")
             else:
-                form = User.objects.create_user(Username=form.Username, student_email=form.student_email, password1=form.password1)
+                form = User.objects.create_user(username=Username, email=student_email, password=password)
                 form.save()
                 return redirect("/studentlogin")
         else:
@@ -29,9 +32,7 @@ def studentsignup(request):
             return redirect("/studentsignup")
     else:
         form = StudentsignupForm
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, 'studentsignup.html', {'form': form, 'submitted': submitted})
+    return render(request, 'studentsignup.html', {'form': form})
 
         # username = request.POST['username']
         # first_name = request.POST['first_name']

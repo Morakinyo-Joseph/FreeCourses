@@ -12,14 +12,14 @@ class StudentsignupForm(forms.ModelForm):
             "Fname",
             "Lname",
             "Username",
-            "password1",
+            "password",
             "password2",
             "date_of_birth",
             "student_email",
         )
 
         widgets = {
-            'password1': forms.PasswordInput(),
+            'password': forms.PasswordInput(),
             'password2': forms.PasswordInput(),
         }
 
