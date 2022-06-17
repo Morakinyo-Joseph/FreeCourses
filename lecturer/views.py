@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect, reverse
 from .models import Course, Lecturer
 from .forms import CourseForm
@@ -7,6 +8,22 @@ from django.contrib.auth import authenticate, login, logout
 
 
 User = get_user_model()
+
+
+def landing_page(request):
+    if User.is_authenticated:
+        return redirect('homepage')
+    else:
+        return render(request, "landing_page.html")
+
+
+def homepage(request):
+    return render(request, "homepage.html")
+
+
+def courses(request):
+    course = Course.objects.all()
+    return redirect(request, 'lecturer/course_view.html', {"course": course})
 
 
 def course_list(request):
@@ -48,16 +65,6 @@ def course_delete(request, pk):
     course = Course.objects.get(id=pk)
     course.delete()
     return redirect("teach:course-list")
-
-def landing_page(request):
-    if User.is_authenticated:
-        return redirect('homepage')
-    else:
-        return render(request, "landing_page.html")
-
-
-def homepage(request):
-    return render(request, "homepage.html")
 
 
 def register(request):
@@ -110,4 +117,5 @@ def logging_in(request):
 
 
 def logging_out(request):
-    pass    
+    logout(request)
+    return redirect('homepage')

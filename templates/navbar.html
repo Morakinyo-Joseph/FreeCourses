@@ -5,10 +5,13 @@ FreeCourse
 
     <a href="{% url 'teach:course-list' %}">Home</a>
 
+    <a href="{% url 'teach:courses' %}">Your Course</a>
+
     <a href="{% url 'teach:course-create' %}">Create</a>
+
 
     <p>Logged in as: {{ user.username }}</p>
 
-    <a href="{% url 'logout' %}"> Logout </a>
+    <a href="{% url 'teach:logout' %}"> Logout </a>
 {% endif %}
 

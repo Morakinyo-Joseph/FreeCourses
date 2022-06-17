@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Your Courses</h1>
+
+<ul>
+{% for course in course %}
+    {% if course.user.username == user.username %}
+
+        <a href="{% url 'teach:course-detail' course.pk %}">
+            <li>
+                <h2 style="text-decoration: underline;">{{ course.category }}</h2>
+                <h3>{{ course.content }}</h3>
+                <hr>
+            </li>
+        </a>
+            
+    {% else %}
+
+        <h1>Your courses display here</h1>
+
+    {% endif %}
+{% endfor %}
+</ul>
+
+{% endblock %}
