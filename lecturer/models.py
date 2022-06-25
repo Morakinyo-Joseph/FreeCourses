@@ -7,7 +7,7 @@ class User(AbstractUser):
     is_lecturer = models.BooleanField(default=False)
 
 
-class Lecturer(models.Model):
+class Lecturer(models.Model):  #OMO GUY
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     confirm = models.BooleanField(default=False)
 

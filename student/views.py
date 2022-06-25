@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from student.forms import StudentsignupForm
+from student.forms import StudentloginForm, StudentsignupForm
 from student.models import Student
 from django.contrib import messages
 from django.contrib.auth import get_user_model, authenticate, logout, login
@@ -48,12 +48,15 @@ def studentsignup(request):
     return render(request, 'student_register/studentsignup.html', {'form': form})
 
 
-def studentlogin(request):
+def studentlogin(request): #Added model form to this view, let's hope it works:)
+    form = StudentloginForm
+
     if request.method == 'POST':
-        username = request.POST['username']
+        form = StudentloginForm(request.POST)
+        Username = request.POST['Username']
         password = request.POST['password']
 
-        user = authenticate(username=username, password=password)
+        user = authenticate(username=Username, password=password)
 
         if user is not None:
             login(request, user)
@@ -62,7 +65,7 @@ def studentlogin(request):
             messages.info(request, 'Invalid Username or Password!')
             return redirect('learn:login')
     else:
-        return render(request, 'student_register/studentlogin.html')
+        return render(request, 'student_register/studentlogin.html', {'form': form})
 
 
 def studentlogout(request):

@@ -21,6 +21,7 @@ class StudentsignupForm(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
             'password2': forms.PasswordInput(),
+            'date_of_birth': forms.DateInput(attrs={'type': 'date','class': 'form-control', 'placeholder': "Date of Birth"})
         }
 
 
