@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Courses</h1>
+<hr>
+
+{% comment %} <ul>
+    {% for course in course reversed %}
+        <a href="{% url 'teach:course-detail' course.pk %}">
+            <li>
+                <h2 style="text-decoration: underline;">{{ course.category }}</h2>
+                <h3>{{ course.content }}</h3>
+                <hr>
+            </li>
+        </a>
+    {% endfor %}
+</ul> {% endcomment %}
+
+{% endblock %}
