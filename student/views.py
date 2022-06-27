@@ -21,14 +21,14 @@ def studentsignup(request):
 
     if request.method == 'POST':
         form = StudentsignupForm(request.POST)
-        Username = request.POST['Username']
+        username = request.POST['username']
         student_email = request.POST['student_email']
         password = request.POST['password']
         password2 = request.POST['password2']
 
         if password == password2:
             
-            if User.objects.filter(username=Username).exists():
+            if User.objects.filter(username=username).exists():
                 messages.info(request, 'Username already exists!')
                 return redirect("learn:signup")
 
@@ -37,7 +37,7 @@ def studentsignup(request):
                 return redirect("learn:signup")
 
             else:
-                form = User.objects.create_user(username=Username, email=student_email, password=password)
+                form = User.objects.create_user(username=username, email=student_email, password=password)
                 form.save()
                 return redirect("learn:login")
         else:
@@ -53,10 +53,10 @@ def studentlogin(request): #Added model form to this view, let's hope it works:)
 
     if request.method == 'POST':
         form = StudentloginForm(request.POST)
-        Username = request.POST['Username']
+        username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate(username=Username, password=password)
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             login(request, user)
